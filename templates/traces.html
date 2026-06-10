@@ -3,21 +3,18 @@
 <head>
     <title>LLM Observability Dashboard</title>
 
-    <form method="GET" action="/traces-ui" style="margin-bottom: 30px;">
+    <form action="/traces-ui" method="GET">
+        <input
+            type="text"
+            name="search"
+            placeholder="Search prompts..."
+            value="{{ search }}"
+        >
 
-    <input
-        type="text"
-        name="search"
-        placeholder="Search prompts..."
-        value="{{ search }}"
-        style="
-            padding: 12px;
-            width: 300px;
-            border-radius: 8px;
-            border: none;
-            font-size: 16px;
-        "
-    >
+        <button type="submit">
+            Search
+        </button>
+    </form>
 
     <button
         type="submit"

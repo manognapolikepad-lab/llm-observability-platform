@@ -60,10 +60,15 @@ def get_traces():
     return result
 
 @app.get("/traces-ui")
-def traces_ui(request: Request):
+def traces_ui(request: Request, search: str = ""):
     db = SessionLocal()
 
-    traces = db.query(Trace).all()
+    if search:
+        traces = db.query(Trace).filter(
+            Trace.prompt.ilike(f"%{search}%")
+        ).all()
+    else:
+        traces = db.query(Trace).all()
 
     total_requests = len(traces)
 
@@ -98,7 +103,8 @@ def traces_ui(request: Request):
             "total_requests": total_requests,
             "avg_latency": avg_latency,
             "fastest": fastest,
-            "slowest": slowest
+            "slowest": slowest,
+            "search": search
         }
     )
 
